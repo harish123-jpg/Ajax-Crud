@@ -1,0 +1,15 @@
+{% for i in students %}
+    <tr id="row-{{i.id}}">
+        <td class="student_name"><b>{{i.name}}</b></td>
+        <td class="student_lastname"><b>{{i.lastname}}</b></td>
+        <td class="student_phone"><b>{{i.phone}}</b></td>
+        <td class="student_email"><b>{{i.email}}</b></td>
+        <td>
+            <input type="button" data-sid="{{i.id}}" style="background-color:Grey;color:white;width:50px;
+                    height:40px;" class="btn-btn-waring btn-sm data-sid" onclick="edit('{{i.id}}')" value="Edit">
+            <input type="button" data-sid="{{i.id}}" style="background-color:Pink;color:black;width:50px;
+                    height:40px;" class="btn-btn-waring btn-sm data-sid" onclick="deleteStudent('{{i.id}}')"
+                   value="delete">
+        </td>
+    </tr>
+    {% endfor %}

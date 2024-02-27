@@ -1,0 +1,166 @@
+{% load static %}
+<html>
+<html lang="en">
+<head>
+    <style>
+         table, th, td {
+            border: 3px solid black;
+         }
+         hr{
+         border: 1px solid black;}
+
+
+    </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css'>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+    <link rel="stylesheet" href="{% static 'css/user.css' %}">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-default navbar-inverse" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{% url 'home' %}">Homepage</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Link</a></li>
+                    <li><a href="{% url 'signup' %}">Signup</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">One more separated link</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="navbar-form navbar-left" role="search">
+                    <input type="text" id="query" name="query" placeholder="Search">
+                    <input type="button" onclick="searchButton()" value="search">
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                     {% if user.is_authenticated %}
+                    <li><a href="{% url 'logout' %}"> logout</a></li>
+                    {% else %}
+                    <li><a href="{% url 'login' %}"> login</a></li>
+                    {% endif %}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<br><br>
+<div class="container mx-auto">
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-3 pb-4">
+            <div class="card p-4">
+                <h4 class="card-title font-weight-bold text-center"><img src="{% static 'image/images.jpg' %}"
+                                                                         alt="Avatar" class="avatar">Hello,
+                    {{ user.username|title }}</h4>
+                <hr>
+                <div class="card-text">
+                    <p class="text-muted mb-0" style="font-size: 12px"><h5><b>Username: &nbsp &nbsp {{ user.username }}</b></h5></p>
+                    <p class="text-muted mb-0" style="font-size: 12px"><h5><b>Name: &nbsp &nbsp {{ user.first_name }}
+                    {{ user.last_name }}</b></h5></p>
+                    <p class="text-muted mb-0" style="font-size: 12px"><h5><b>Email: &nbsp &nbsp {{ user.email }}</b>
+                </h5>:</p>
+
+                    {% if  user.username == request.user.username %}
+                        enable edit
+                    {% endif %}
+
+
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-9 pb-4">
+            ...
+        </div>
+    </div>
+</div>
+
+<br><br><br><br><br><br><br>
+<footer class="footer-distributed">
+
+    <div class="footer-left">
+        <h4><p style="color: brown"><b>COMPANY LOGO</b></p></h4>
+        <img src="{% static 'image/images.jpg' %}" class="headerlogo" alt="QDAGRW" width="200px" height="70px">
+        <p class="footer-links">
+            <a href="#" class="link-1">Home</a>
+
+            <a href="#">Blog</a>
+
+            <a href="#">Pricing</a>
+
+            <a href="#">About</a>
+
+            <a href="#">Faq</a>
+
+            <a href="#">Contact</a>
+        </p>
+
+        <p class="footer-company-name"> QDAGRW © 2022</p>
+    </div>
+
+    <div class="footer-center">
+
+        <div>
+            <i class="fa fa-map-marker"></i>
+            <p><span>Chester Hills Near Abmusha Hotel</span> Solan(H.P)</p>
+        </div>
+
+        <div>
+            <i class="fa fa-phone"></i>
+            <p>+91 987654321</p>
+        </div>
+
+        <div>
+            <i class="fa fa-envelope"></i>
+            <p><a href="https://www.qdagrw.com/">QDAGRW@company.com</a></p>
+        </div>
+
+    </div>
+
+    <div class="footer-right">
+
+        <p class="footer-company-about">
+            <span>About the company</span>
+            Lorem ipsum dolor sit amet, consectateur adispicing elit. Fusce euismod convallis velit, eu auctor lacus
+            vehicula sit amet.
+        </p>
+
+        <div class="footer-icons">
+
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-linkedin"></i></a>
+            <a href="#"><i class="fa fa-github"></i></a>
+
+        </div>
+
+    </div>
+
+</footer>
+</body>
+</html>

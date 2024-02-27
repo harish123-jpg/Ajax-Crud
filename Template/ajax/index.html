@@ -1,0 +1,293 @@
+{% load static %}
+<html>
+<html lang="en">
+<head>
+    <style>
+         table, th, td {
+            border: 3px solid black;
+         }
+         hr{
+         border: 1px solid black;}
+    </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css'>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-default navbar-inverse" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Login dropdown</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Link</a></li>
+                    <li><a href="{% url 'signup' %}">Signup</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">One more separated link</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="navbar-form navbar-left" role="search">
+                    <input type="text" id="query" name="query" placeholder="Search">
+                    <input type="button" onclick="searchButton()" value="search">
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    {% if user.is_authenticated %}
+                     <li><a href="{% url 'profile' request.user.username %}"> UserProfile</a></li>
+                    <li><a href="{% url 'logout' %}"> logout</a></li>
+                    {% else %}
+                    <li><a href="{% url 'login' %}"> login</a></li>
+                    {% endif %}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+{% if user.is_authenticated %}
+<form method="POST">
+    {% csrf_token %}
+    <div class="container">
+        <div class="col-md-4" id="studentform">
+        </div>
+        <center>
+            <h1><p style="color:BROWN; background-color:GREY; width:200px; height:80px">AJAX IN DJANGO </p></h1>
+            <hr/>
+            <p>{{ form }}</p>
+            <input type="button" onclick="saveStudent()" class="submitBtn" value="Submit">
+        </center>
+        {% endif %}
+    </div>
+</form>
+{% if user.is_authenticated %}
+<div col-md-8>
+    <center>
+        <table>
+            <thead>
+            Hi {{ user.username }}
+            <tr>
+                <th>
+                    <h3><p style="color:Red; background-color :black">Student Name &nbsp &nbsp</p></h3>
+                </th>
+                &nbsp &nbsp
+                <th>
+                    <h3><p style="color:Red; background-color :black">StudentLastname &nbsp &nbsp</p></h3>
+                </th>
+                &nbsp &nbsp
+                <th>
+                    <h3><p style="color:Red; background-color :black">Student Phone &nbsp &nbsp</p></h3>
+                </th>
+                &nbsp &nbsp
+                <th>
+                    <h3><p style="color:Red; background-color :black">Student Email &nbsp &nbsp</p></h3>
+                </th>
+                &nbsp &nbsp
+                <th>
+                    <h3><p style="color:Red; background-color :black">Action &nbsp &nbsp</p></h3>
+                </th>
+                &nbsp &nbsp
+            </tr>
+            </thead>
+            <tbody>
+            {% include 'partial_students.html' %}
+            </tbody>
+        </table>
+    </center>
+</div>
+<div id="searched" onclick="paginate"></div>
+<br>
+<section>
+<p class="text-center">
+    <button style="color :brown; background-color : yellow" id="loadmoreBtn"> Load more</button>
+</p>
+</section>
+<footer class="footer-distributed">
+
+    <div class="footer-left">
+         <h4><p style="color: brown"><b>COMPANY LOGO</b></p></h4>
+      <img src="{% static 'image/images.jpg' %}" class="headerlogo" alt="QDAGRW" width="200px" height="70px">
+        <p class="footer-links">
+            <a href="#" class="link-1">Home</a>
+
+            <a href="#">Blog</a>
+
+            <a href="#">Pricing</a>
+
+            <a href="#">About</a>
+
+            <a href="#">Faq</a>
+
+            <a href="#">Contact</a>
+        </p>
+
+        <p class="footer-company-name"> QDAGRW © 2022</p>
+    </div>
+
+    <div class="footer-center">
+
+        <div>
+            <i class="fa fa-map-marker"></i>
+            <p><span>Chester Hills Near Abmusha Hotel</span> Solan(H.P)</p>
+        </div>
+
+        <div>
+            <i class="fa fa-phone"></i>
+            <p>+91 987654321</p>
+        </div>
+
+        <div>
+            <i class="fa fa-envelope"></i>
+            <p><a href="https://www.qdagrw.com/">QDAGRW@company.com</a></p>
+        </div>
+
+    </div>
+
+    <div class="footer-right">
+
+        <p class="footer-company-about">
+            <span>About the company</span>
+            Lorem ipsum dolor sit amet, consectateur adispicing elit. Fusce euismod convallis velit, eu auctor lacus
+            vehicula sit amet.
+        </p>
+
+        <div class="footer-icons">
+
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-linkedin"></i></a>
+            <a href="#"><i class="fa fa-github"></i></a>
+
+        </div>
+
+    </div>
+
+</footer>
+{% endif %}
+<script type="text/javascript">
+  const csrf_token = document.querySelector('[name=csrfmiddlewaretoken]').value
+  var update_id;
+    function edit(id){
+        let name = $(`#row-${id} .student_name`).text();
+        let lastname = $(`#row-${id} .student_lastname`).text();
+        let phone = $(`#row-${id} .student_phone`).text();
+        let email = $(`#row-${id} .student_email`).text();
+
+        $('#id_name').val(name);
+        $('#id_lastname').val(lastname);
+        $('#id_phone').val(phone);
+        $('#id_email').val(email);
+        update_id = id;
+
+    }
+    function saveStudent() {
+        var data = {
+                    name: $('#id_name')[0].value,
+                    lastname: $('#id_lastname')[0].value,
+                    phone: $('#id_phone')[0].value,
+                    email: $('#id_email')[0].value,
+                    'csrfmiddlewaretoken': csrf_token,
+                    'update': update_id
+             };
+        $.ajax({
+            url: '{% url 'home' %}',
+            type: 'POST',
+            data: data,
+            datatype: 'json',
+            success: function(response){
+            if (update_id){
+                $(`#row-${update_id}`).html(response)
+                console.log(response)
+            }
+            else{
+                $('tbody').append(response);
+                console.log(response)
+            }
+            update_id = null;
+            $('#id_name').val('');
+            $('#id_lastname').val('');
+            $('#id_phone').val('');
+            $('#id_email').val('');
+             }
+    });
+}
+  function deleteStudent(id){
+    var data ={
+                'csrfmiddlewaretoken': csrf_token , 'id':id}
+        $.ajax({
+            url: 'delete/'+id,
+            type: 'POST',
+            data: data,
+            datatype: 'json',
+            success: function(response){
+            console.log(response);
+            $("#row-"+response.id).remove();
+            }
+        });
+   }
+
+        var PAGE = 1;
+    function searchButton(){
+    console.log('alskjda')
+    PAGE = 1;
+    let query = document.getElementById("query").value;
+    $.ajax({
+        url: `{% url 'home' %}?page=${PAGE}&query=${query}`,
+        success: function (response){
+             $("tbody").html(response["html"]);
+                if (!response["has_next"]){
+                        $("#loadmoreBtn").remove();
+               }
+        }
+    })
+  }
+
+  $(document).ready(function(){
+      $("#loadmoreBtn").on('click',function(){
+      PAGE += 1;
+       var _currentResult=$(".post-box").length;
+        let query = document.getElementById("query").value;
+    $.ajax({
+        url: `{% url 'home' %}?page=${PAGE}&query=${query}`,
+            success:function(response){
+                $("tbody").append(response["html"]);
+                if (!response["has_next"]){
+                        $("#loadmoreBtn").remove();
+               }
+            }
+        });
+     });
+  });
+
+
+</script>
+<script src="https://code.jquery.com/jquery-3.6.1.js"
+        integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js'></script>
+</body>
+</html>
+
+
